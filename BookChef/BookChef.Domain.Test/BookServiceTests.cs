@@ -27,12 +27,21 @@ namespace BookChef.Domain.Test
         public void GetByTitle_ValidTitle_ReturnsBook()
         {
             const string title = "validtitle";
+            A.CallTo(() => _bookRepository.GetByTitle(title))
+                .Returns(new BookDto
+                {
+                    BookId = 1,
+                    Author = "John Smith Jr.",
+                    Isbn = "1234-567",
+                    Publisher = "Space Publications",
+                    Title = title
+                });
 
             var result = _bookService.GetByTitle(title);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(Book));
-
+            Assert.IsTrue(result.Title==title);
         }
     }
 }
