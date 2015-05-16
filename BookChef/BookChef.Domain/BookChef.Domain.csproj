@@ -51,6 +51,8 @@
     <Compile Include="Book.cs" />
     <Compile Include="DTO\BookDto.cs" />
     <Compile Include="DTO\PersonDto.cs" />
+    <Compile Include="Exceptions\BookNotFoundException.cs" />
+    <Compile Include="Exceptions\PersonNotFoundException.cs" />
     <Compile Include="Interfaces\IBookRepository.cs" />
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
