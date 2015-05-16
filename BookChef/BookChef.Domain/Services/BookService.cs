@@ -58,6 +58,13 @@ namespace BookChef.Domain.Services
             var books = Mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(bookDto);
 
             return books;
-        } 
+        }
+
+        public OperationResult CreateBook(BookDto book)
+        {
+            var response = _bookRepository.CreateBook(book);
+
+            return response;
+        }
     }
 }

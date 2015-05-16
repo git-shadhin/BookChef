@@ -39,5 +39,10 @@ namespace BookChef.Persistence
         {
             throw new NotImplementedException();
         }
+
+        public OperationResult CreateBook(BookDto newbookDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

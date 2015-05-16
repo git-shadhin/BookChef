@@ -52,6 +52,7 @@
     <Compile Include="DTO\BookDto.cs" />
     <Compile Include="DTO\PersonDto.cs" />
     <Compile Include="Enums\BookStatus.cs" />
+    <Compile Include="Enums\OperationResult.cs" />
     <Compile Include="Exceptions\BookNotFoundException.cs" />
     <Compile Include="Exceptions\PersonNotFoundException.cs" />
     <Compile Include="Interfaces\IBookRepository.cs" />

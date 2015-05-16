@@ -11,5 +11,6 @@ namespace BookChef.Domain.Interfaces
         IEnumerable<BookDto> GetByIsbn(string isbn);
         IEnumerable<BookDto> GetByPublisher(string publisher);
         IEnumerable<BookDto> GetByStatus(BookStatus bookStatus);
+        OperationResult CreateBook(BookDto newbookDto);
     }
 }

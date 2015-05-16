@@ -86,6 +86,13 @@ namespace BookChef.Domain.Test
             A.CallTo(() => _bookRepository.GetByPublisher(InvalidPublisher))
                 .Throws<BookNotFoundException>();
 
+            A.CallTo(() => _bookRepository.CreateBook(A<BookDto>.Ignored))
+                .Returns(new OperationResult
+                {
+                    Success = true,
+                    Information = null
+                });
+
             Mapper.CreateMap<BookDto, Book>();
 
             _bookService = new BookService(_bookRepository);
@@ -183,6 +190,26 @@ namespace BookChef.Domain.Test
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof (List<Book>));
             Assert.IsTrue(result.Any(x => x.Status == BookStatus.Borrowed));
+        }
+
+        [TestMethod]
+        public void CreateBook_ValidData_ReturnsResponse()
+        {
+            var newbook = new BookDto
+            {
+                BookId = 1,
+                Author = "Dimitris Panokostas",
+                Isbn = "1234",
+                Publisher = "Some Publisher",
+                Title = "My fabulous book",
+                Status = BookStatus.Available
+            };
+
+            var result = _bookService.CreateBook(newbook);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (OperationResult));
+            Assert.IsTrue(result.Success);
         }
     }
 }
