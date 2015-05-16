@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using BookChef.Domain.DTO;
+using BookChef.Domain.Enums;
 using BookChef.Domain.Interfaces;
 
 namespace BookChef.Domain.Services
@@ -49,5 +50,14 @@ namespace BookChef.Domain.Services
 
             return books;
         }
+
+        public IEnumerable<Book> GetByStatus(BookStatus status)
+        {
+            var bookDto = _bookRepository.GetByStatus(status);
+
+            var books = Mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(bookDto);
+
+            return books;
+        } 
     }
 }

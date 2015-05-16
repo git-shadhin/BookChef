@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoMapper;
 using BookChef.Domain.DTO;
+using BookChef.Domain.Enums;
 using BookChef.Domain.Exceptions;
 using BookChef.Domain.Interfaces;
 using BookChef.Domain.Services;
@@ -30,7 +31,26 @@ namespace BookChef.Domain.Test
                 Title = ValidTitle,
                 Isbn = ValidIsbn,
                 Publisher = ValidPublisher,
-                Author = ValidAuthor
+                Author = ValidAuthor,
+                Status = BookStatus.Available
+            },
+            new BookDto
+            {
+                BookId = 2,
+                Title = "Another Title",
+                Isbn = "Another Isbn",
+                Publisher = "Another Publisher",
+                Author = "Another author",
+                Status = BookStatus.Borrowed
+            },
+            new BookDto
+            {
+                BookId = 3,
+                Title = "Yet another Title",
+                Isbn = "Yet another Isbn",
+                Publisher = "Yet another Publisher",
+                Author = "Yet another Author",
+                Status = BookStatus.Reserved
             }
         };
 
@@ -43,13 +63,19 @@ namespace BookChef.Domain.Test
             _bookRepository = A.Fake<IBookRepository>();
 
             A.CallTo(() => _bookRepository.GetByTitle(ValidTitle))
-                .Returns(_books);
+                .Returns(_books.Where(x => x.Title == ValidTitle));
             A.CallTo(() => _bookRepository.GetByAuthor(ValidAuthor))
-                .Returns(_books);
+                .Returns(_books.Where(x => x.Author == ValidAuthor));
             A.CallTo(() => _bookRepository.GetByIsbn(ValidIsbn))
-                .Returns(_books);
+                .Returns(_books.Where(x => x.Isbn == ValidIsbn));
             A.CallTo(() => _bookRepository.GetByPublisher(ValidPublisher))
-                .Returns(_books);
+                .Returns(_books.Where(x => x.Publisher == ValidPublisher));
+            A.CallTo(() => _bookRepository.GetByStatus(BookStatus.Available))
+                .Returns(_books.Where(x => x.Status == BookStatus.Available));
+            A.CallTo(() => _bookRepository.GetByStatus(BookStatus.Borrowed))
+                .Returns(_books.Where(x => x.Status == BookStatus.Borrowed));
+            A.CallTo(() => _bookRepository.GetByStatus(BookStatus.Reserved))
+                .Returns(_books.Where(x => x.Status == BookStatus.Reserved));
 
             A.CallTo(() => _bookRepository.GetByTitle(InvalidTitle))
                 .Throws<BookNotFoundException>();
@@ -78,7 +104,7 @@ namespace BookChef.Domain.Test
         [TestMethod, ExpectedException(typeof (BookNotFoundException))]
         public void GetByTitle_InvalidTitle_ThrowsException()
         {
-            var books = _bookService.GetByTitle(InvalidTitle);
+            _bookService.GetByTitle(InvalidTitle);
         }
 
         [TestMethod]
@@ -94,7 +120,7 @@ namespace BookChef.Domain.Test
         [TestMethod, ExpectedException(typeof (BookNotFoundException))]
         public void GetByAuthor_InvalidAuthor_ThrowsException()
         {
-            var books = _bookService.GetByAuthor(InvalidAuthor);
+            _bookService.GetByAuthor(InvalidAuthor);
         }
 
         [TestMethod]
@@ -110,7 +136,7 @@ namespace BookChef.Domain.Test
         [TestMethod, ExpectedException(typeof (BookNotFoundException))]
         public void GetByIsbn_InvalidIsbn_ThrowsException()
         {
-            var books = _bookService.GetByIsbn(InvalidIsbn);
+            _bookService.GetByIsbn(InvalidIsbn);
         }
 
         [TestMethod]
@@ -126,7 +152,37 @@ namespace BookChef.Domain.Test
         [TestMethod, ExpectedException(typeof (BookNotFoundException))]
         public void GetByPublisher_InvalidPublisher_ThrowsException()
         {
-            var books = _bookService.GetByPublisher(InvalidPublisher);
+            _bookService.GetByPublisher(InvalidPublisher);
+        }
+
+        [TestMethod]
+        public void GetByStatus_Available_ReturnsBooks()
+        {
+            var result = _bookService.GetByStatus(BookStatus.Available);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (List<Book>));
+            Assert.IsTrue(result.Any(x => x.Status == BookStatus.Available));
+        }
+
+        [TestMethod]
+        public void GetByStatus_Reserved_ReturnsBooks()
+        {
+            var result = _bookService.GetByStatus(BookStatus.Reserved);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (List<Book>));
+            Assert.IsTrue(result.Any(x => x.Status == BookStatus.Reserved));
+        }
+
+        [TestMethod]
+        public void GetByStatus_Borrowed_ReturnsBooks()
+        {
+            var result = _bookService.GetByStatus(BookStatus.Borrowed);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (List<Book>));
+            Assert.IsTrue(result.Any(x => x.Status == BookStatus.Borrowed));
         }
     }
 }

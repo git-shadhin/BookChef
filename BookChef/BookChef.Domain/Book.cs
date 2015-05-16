@@ -1,4 +1,6 @@
-﻿namespace BookChef.Domain
+﻿using BookChef.Domain.Enums;
+
+namespace BookChef.Domain
 {
     public class Book
     {
@@ -7,5 +9,6 @@
         public string Isbn { get; set; }
         public string Author { get; set; }
         public string Publisher { get; set; }
+        public BookStatus Status { get; set; }
     }
 }

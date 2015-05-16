@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookChef.Domain;
 using BookChef.Domain.DTO;
+using BookChef.Domain.Enums;
 using BookChef.Domain.Interfaces;
 
 namespace BookChef.Persistence
@@ -29,6 +31,11 @@ namespace BookChef.Persistence
         }
 
         public IEnumerable<BookDto> GetByPublisher(string publisher)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<BookDto> GetByStatus(BookStatus bookStatus)
         {
             throw new NotImplementedException();
         }

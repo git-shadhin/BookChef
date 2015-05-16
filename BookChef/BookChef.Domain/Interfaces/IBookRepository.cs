@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BookChef.Domain.DTO;
+using BookChef.Domain.Enums;
 
 namespace BookChef.Domain.Interfaces
 {
@@ -9,5 +10,6 @@ namespace BookChef.Domain.Interfaces
         IEnumerable<BookDto> GetByAuthor(string author);
         IEnumerable<BookDto> GetByIsbn(string isbn);
         IEnumerable<BookDto> GetByPublisher(string publisher);
+        IEnumerable<BookDto> GetByStatus(BookStatus bookStatus);
     }
 }
