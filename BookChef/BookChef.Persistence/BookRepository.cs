@@ -10,22 +10,27 @@ namespace BookChef.Persistence
 {
     public class BookRepository : IBookRepository
     {
-        public BookDto GetByTitle(string booktitle)
+        public IEnumerable<BookDto> GetByTitle(string booktitle)
         {
-            var bookDto = new BookDto();
-
             // stubbed - this should go to the database
             // and fetch the given book record
 
-            bookDto.Title = booktitle;
+            throw new NotImplementedException();
+        }
 
-            if (booktitle != "validtitle") return bookDto;
-            bookDto.BookId = 1;
-            bookDto.Isbn = "123-456";
-            bookDto.Publisher = "Books Publisher";
-            bookDto.Author = "John Smith";
+        public IEnumerable<BookDto> GetByAuthor(string author)
+        {
+            throw new NotImplementedException();
+        }
 
-            return bookDto;
+        public IEnumerable<BookDto> GetByIsbn(string isbn)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<BookDto> GetByPublisher(string publisher)
+        {
+            throw new NotImplementedException();
         }
     }
 }

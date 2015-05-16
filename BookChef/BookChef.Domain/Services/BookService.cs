@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using BookChef.Domain.DTO;
 using BookChef.Domain.Interfaces;
 
@@ -17,13 +14,40 @@ namespace BookChef.Domain.Services
             _bookRepository = bookRepository;
         }
 
-        public Book GetByTitle(string title)
+        public IEnumerable<Book> GetByTitle(string title)
         {
             var bookDto = _bookRepository.GetByTitle(title);
 
-            var book = AutoMapper.Mapper.Map<BookDto, Book>(bookDto);
+            var books = Mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(bookDto);
 
-            return book;
+            return books;
+        }
+
+        public IEnumerable<Book> GetByAuthor(string author)
+        {
+            var bookDto = _bookRepository.GetByAuthor(author);
+
+            var books = Mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(bookDto);
+
+            return books;
+        }
+
+        public IEnumerable<Book> GetByIsbn(string isbn)
+        {
+            var bookDto = _bookRepository.GetByIsbn(isbn);
+
+            var books = Mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(bookDto);
+
+            return books;
+        }
+
+        public IEnumerable<Book> GetByPublisher(string publisher)
+        {
+            var bookDto = _bookRepository.GetByPublisher(publisher);
+
+            var books = Mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(bookDto);
+
+            return books;
         }
     }
 }

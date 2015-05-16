@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using BookChef.Domain.DTO;
 
 namespace BookChef.Domain.Interfaces
 {
     public interface IBookRepository
     {
-        BookDto GetByTitle(string booktitle);
+        IEnumerable<BookDto> GetByTitle(string booktitle);
+        IEnumerable<BookDto> GetByAuthor(string author);
+        IEnumerable<BookDto> GetByIsbn(string isbn);
+        IEnumerable<BookDto> GetByPublisher(string publisher);
     }
 }
