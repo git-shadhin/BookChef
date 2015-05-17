@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using BookChef.Domain.Classes;
 using BookChef.Domain.DTO;
 using BookChef.Domain.Enums;
 using BookChef.Domain.Exceptions;
@@ -27,7 +28,7 @@ namespace BookChef.Domain.Test
         {
             new BookDto
             {
-                BookId = 1,
+                Id = 1,
                 Title = ValidTitle,
                 Isbn = ValidIsbn,
                 Publisher = ValidPublisher,
@@ -36,7 +37,7 @@ namespace BookChef.Domain.Test
             },
             new BookDto
             {
-                BookId = 2,
+                Id = 2,
                 Title = "Another Title",
                 Isbn = "Another Isbn",
                 Publisher = "Another Publisher",
@@ -45,7 +46,7 @@ namespace BookChef.Domain.Test
             },
             new BookDto
             {
-                BookId = 3,
+                Id = 3,
                 Title = "Yet another Title",
                 Isbn = "Yet another Isbn",
                 Publisher = "Yet another Publisher",
@@ -197,7 +198,7 @@ namespace BookChef.Domain.Test
         {
             var newbook = new BookDto
             {
-                BookId = 1,
+                Id = 1,
                 Author = "Dimitris Panokostas",
                 Isbn = "1234",
                 Publisher = "Some Publisher",

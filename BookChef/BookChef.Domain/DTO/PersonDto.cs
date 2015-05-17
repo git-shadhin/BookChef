@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace BookChef.Domain.DTO
 {
-    class PersonDto
+    public class PersonDto
     {
+        public int Id { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
     }
 }
