@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BookChef.Domain.Classes;
 using BookChef.Domain.DTO;
 using BookChef.Domain.Enums;
 
@@ -12,5 +13,6 @@ namespace BookChef.Domain.Interfaces
         IEnumerable<BookDto> GetByPublisher(string publisher);
         IEnumerable<BookDto> GetByStatus(BookStatus bookStatus);
         OperationResult CreateBook(BookDto newbookDto);
+        OperationResult ChangeBookStatus(BookDto bookDto, BookStatus status);
     }
 }

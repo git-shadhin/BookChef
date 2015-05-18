@@ -1,4 +1,4 @@
-﻿namespace BookChef.Domain.Enums
+﻿namespace BookChef.Domain.Classes
 {
     public class OperationResult
     {

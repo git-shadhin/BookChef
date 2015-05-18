@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookChef.Domain;
+using BookChef.Domain.Classes;
 using BookChef.Domain.DTO;
 using BookChef.Domain.Enums;
 using BookChef.Domain.Interfaces;
@@ -41,6 +42,11 @@ namespace BookChef.Persistence
         }
 
         public OperationResult CreateBook(BookDto newbookDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public OperationResult ChangeBookStatus(BookDto bookDto, BookStatus status)
         {
             throw new NotImplementedException();
         }

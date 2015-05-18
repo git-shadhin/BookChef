@@ -67,5 +67,12 @@ namespace BookChef.Domain.Services
 
             return response;
         }
+
+        public OperationResult ChangeBookStatus(BookDto bookDto, BookStatus status)
+        {
+            var response = _bookRepository.ChangeBookStatus(bookDto, status);
+
+            return response;
+        }
     }
 }

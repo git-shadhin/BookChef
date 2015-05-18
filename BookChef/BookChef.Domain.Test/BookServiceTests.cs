@@ -87,12 +87,6 @@ namespace BookChef.Domain.Test
             A.CallTo(() => _bookRepository.GetByPublisher(InvalidPublisher))
                 .Throws<BookNotFoundException>();
 
-            A.CallTo(() => _bookRepository.CreateBook(A<BookDto>.Ignored))
-                .Returns(new OperationResult
-                {
-                    Success = true,
-                    Information = null
-                });
 
             Mapper.CreateMap<BookDto, Book>();
 
@@ -194,19 +188,33 @@ namespace BookChef.Domain.Test
         }
 
         [TestMethod]
-        public void CreateBook_ValidData_ReturnsResponse()
+        public void CreateBook_ValidData_ReturnsOperationResultSuccess()
         {
-            var newbook = new BookDto
-            {
-                Id = 1,
-                Author = "Dimitris Panokostas",
-                Isbn = "1234",
-                Publisher = "Some Publisher",
-                Title = "My fabulous book",
-                Status = BookStatus.Available
-            };
+            A.CallTo(() => _bookRepository.CreateBook(A<BookDto>.Ignored))
+                .Returns(new OperationResult
+                {
+                    Success = true,
+                    Information = null
+                });
 
-            var result = _bookService.CreateBook(newbook);
+            var result = _bookService.CreateBook(A.Dummy<BookDto>());
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof (OperationResult));
+            Assert.IsTrue(result.Success);
+        }
+
+        [TestMethod]
+        public void ChangeBookStatus_Borrowed_ReturnsOperationResultSuccess()
+        {
+            A.CallTo(() => _bookRepository.ChangeBookStatus(A<BookDto>.Ignored, A<BookStatus>.Ignored))
+                .Returns(new OperationResult
+                {
+                    Success = true,
+                    Information = null
+                });
+
+            var result = _bookService.ChangeBookStatus(A.Dummy<BookDto>(), A.Dummy<BookStatus>());
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof (OperationResult));
