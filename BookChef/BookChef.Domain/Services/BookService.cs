@@ -74,5 +74,12 @@ namespace BookChef.Domain.Services
 
             return response;
         }
+
+        public OperationResult DeleteBook(BookDto bookDto)
+        {
+            var response = _bookRepository.DeleteBook(bookDto);
+
+            return response;
+        }
     }
 }

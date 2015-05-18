@@ -220,5 +220,24 @@ namespace BookChef.Domain.Test
             Assert.IsInstanceOfType(result, typeof (OperationResult));
             Assert.IsTrue(result.Success);
         }
+
+        [TestMethod]
+        public void DeleteBook_ValidData_ReturnsOperationResultSuccess()
+        {
+            A.CallTo(() => _bookRepository.DeleteBook(A<BookDto>.Ignored))
+                .Returns(new OperationResult
+                {
+                    Success = true,
+                    Information = null
+                });
+
+            var result = _bookService.DeleteBook(A.Dummy<BookDto>());
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(OperationResult));
+            Assert.IsTrue(result.Success);
+        }
+
+
     }
 }

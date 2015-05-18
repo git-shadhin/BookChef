@@ -50,5 +50,10 @@ namespace BookChef.Persistence
         {
             throw new NotImplementedException();
         }
+
+        public OperationResult DeleteBook(BookDto bookDto)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

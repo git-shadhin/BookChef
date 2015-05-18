@@ -14,5 +14,6 @@ namespace BookChef.Domain.Interfaces
         IEnumerable<BookDto> GetByStatus(BookStatus bookStatus);
         OperationResult CreateBook(BookDto newbookDto);
         OperationResult ChangeBookStatus(BookDto bookDto, BookStatus status);
+        OperationResult DeleteBook(BookDto bookDto);
     }
 }
