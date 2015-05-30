@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using BookChef.Domain;
 using BookChef.Domain.Classes;
 using BookChef.Domain.DTO;
-using BookChef.Domain.Enums;
 using BookChef.Domain.Interfaces;
 
 namespace BookChef.Persistence

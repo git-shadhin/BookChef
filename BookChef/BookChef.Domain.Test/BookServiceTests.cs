@@ -3,7 +3,6 @@ using System.Linq;
 using AutoMapper;
 using BookChef.Domain.Classes;
 using BookChef.Domain.DTO;
-using BookChef.Domain.Enums;
 using BookChef.Domain.Exceptions;
 using BookChef.Domain.Interfaces;
 using BookChef.Domain.Services;

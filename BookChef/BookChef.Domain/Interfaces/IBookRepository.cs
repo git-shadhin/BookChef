@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using BookChef.Domain.Classes;
 using BookChef.Domain.DTO;
-using BookChef.Domain.Enums;
 
 namespace BookChef.Domain.Interfaces
 {
