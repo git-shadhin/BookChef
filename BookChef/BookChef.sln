@@ -1,13 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookChef.Domain", "BookChef.Domain\BookChef.Domain.csproj", "{B63A0B60-7260-4047-B375-D1EBF32C97AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookChef.Domain.Test", "BookChef.Domain.Test\BookChef.Domain.Test.csproj", "{3B88DE65-1576-4EC1-BBC3-B3C08C811E11}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookChef.Persistence", "BookChef.Persistence\BookChef.Persistence.csproj", "{8F1FE05C-A3D3-4934-B7C5-3666A6BEE1FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookChef.Persistence.SQLite", "BookChef.Persistence.SQLite\BookChef.Persistence.SQLite.csproj", "{E9B9BFE6-1EF0-43FD-A596-91AF77467EAD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookChef.Persistence.MSSQL", "BookChef.Persistence.MSSQL\BookChef.Persistence.MSSQL.csproj", "{176D087B-9AEC-4FD3-A786-5D9B2C7FCC97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{8F1FE05C-A3D3-4934-B7C5-3666A6BEE1FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F1FE05C-A3D3-4934-B7C5-3666A6BEE1FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F1FE05C-A3D3-4934-B7C5-3666A6BEE1FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9B9BFE6-1EF0-43FD-A596-91AF77467EAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9B9BFE6-1EF0-43FD-A596-91AF77467EAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9B9BFE6-1EF0-43FD-A596-91AF77467EAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9B9BFE6-1EF0-43FD-A596-91AF77467EAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{176D087B-9AEC-4FD3-A786-5D9B2C7FCC97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{176D087B-9AEC-4FD3-A786-5D9B2C7FCC97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{176D087B-9AEC-4FD3-A786-5D9B2C7FCC97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{176D087B-9AEC-4FD3-A786-5D9B2C7FCC97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

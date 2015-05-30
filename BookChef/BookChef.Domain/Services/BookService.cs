@@ -52,7 +52,7 @@ namespace BookChef.Domain.Services
             return books;
         }
 
-        public IEnumerable<Book> GetByStatus(BookStatus status)
+        public IEnumerable<Book> GetByStatus(Status status)
         {
             var bookDto = _bookRepository.GetByStatus(status);
 
@@ -68,7 +68,7 @@ namespace BookChef.Domain.Services
             return response;
         }
 
-        public OperationResult ChangeBookStatus(BookDto bookDto, BookStatus status)
+        public OperationResult ChangeBookStatus(BookDto bookDto, Status status)
         {
             var response = _bookRepository.ChangeBookStatus(bookDto, status);
 

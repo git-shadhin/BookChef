@@ -33,7 +33,7 @@ namespace BookChef.Domain.Test
                 Isbn = ValidIsbn,
                 Publisher = ValidPublisher,
                 Author = ValidAuthor,
-                Status = BookStatus.Available
+                Status = Status.Available
             },
             new BookDto
             {
@@ -42,7 +42,7 @@ namespace BookChef.Domain.Test
                 Isbn = "Another Isbn",
                 Publisher = "Another Publisher",
                 Author = "Another author",
-                Status = BookStatus.Borrowed
+                Status = Status.Unavailable
             },
             new BookDto
             {
@@ -51,7 +51,7 @@ namespace BookChef.Domain.Test
                 Isbn = "Yet another Isbn",
                 Publisher = "Yet another Publisher",
                 Author = "Yet another Author",
-                Status = BookStatus.Reserved
+                Status = Status.Reserved
             }
         };
 
@@ -71,12 +71,12 @@ namespace BookChef.Domain.Test
                 .Returns(_books.Where(x => x.Isbn == ValidIsbn));
             A.CallTo(() => _bookRepository.GetByPublisher(ValidPublisher))
                 .Returns(_books.Where(x => x.Publisher == ValidPublisher));
-            A.CallTo(() => _bookRepository.GetByStatus(BookStatus.Available))
-                .Returns(_books.Where(x => x.Status == BookStatus.Available));
-            A.CallTo(() => _bookRepository.GetByStatus(BookStatus.Borrowed))
-                .Returns(_books.Where(x => x.Status == BookStatus.Borrowed));
-            A.CallTo(() => _bookRepository.GetByStatus(BookStatus.Reserved))
-                .Returns(_books.Where(x => x.Status == BookStatus.Reserved));
+            A.CallTo(() => _bookRepository.GetByStatus(Status.Available))
+                .Returns(_books.Where(x => x.Status == Status.Available));
+            A.CallTo(() => _bookRepository.GetByStatus(Status.Unavailable))
+                .Returns(_books.Where(x => x.Status == Status.Unavailable));
+            A.CallTo(() => _bookRepository.GetByStatus(Status.Reserved))
+                .Returns(_books.Where(x => x.Status == Status.Reserved));
 
             A.CallTo(() => _bookRepository.GetByTitle(InvalidTitle))
                 .Throws<BookNotFoundException>();
@@ -160,31 +160,31 @@ namespace BookChef.Domain.Test
         [TestMethod]
         public void GetByStatus_Available_ReturnsBooks()
         {
-            var result = _bookService.GetByStatus(BookStatus.Available);
+            var result = _bookService.GetByStatus(Status.Available);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof (List<Book>));
-            Assert.IsTrue(result.Any(x => x.Status == BookStatus.Available));
+            Assert.IsTrue(result.Any(x => x.Status == Status.Available));
         }
 
         [TestMethod]
         public void GetByStatus_Reserved_ReturnsBooks()
         {
-            var result = _bookService.GetByStatus(BookStatus.Reserved);
+            var result = _bookService.GetByStatus(Status.Reserved);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof (List<Book>));
-            Assert.IsTrue(result.Any(x => x.Status == BookStatus.Reserved));
+            Assert.IsTrue(result.Any(x => x.Status == Status.Reserved));
         }
 
         [TestMethod]
         public void GetByStatus_Borrowed_ReturnsBooks()
         {
-            var result = _bookService.GetByStatus(BookStatus.Borrowed);
+            var result = _bookService.GetByStatus(Status.Unavailable);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof (List<Book>));
-            Assert.IsTrue(result.Any(x => x.Status == BookStatus.Borrowed));
+            Assert.IsTrue(result.Any(x => x.Status == Status.Unavailable));
         }
 
         [TestMethod]
@@ -207,14 +207,14 @@ namespace BookChef.Domain.Test
         [TestMethod]
         public void ChangeBookStatus_Borrowed_ReturnsOperationResultSuccess()
         {
-            A.CallTo(() => _bookRepository.ChangeBookStatus(A<BookDto>.Ignored, A<BookStatus>.Ignored))
+            A.CallTo(() => _bookRepository.ChangeBookStatus(A<BookDto>.Ignored, A<Status>.Ignored))
                 .Returns(new OperationResult
                 {
                     Success = true,
                     Information = null
                 });
 
-            var result = _bookService.ChangeBookStatus(A.Dummy<BookDto>(), A.Dummy<BookStatus>());
+            var result = _bookService.ChangeBookStatus(A.Dummy<BookDto>(), A.Dummy<Status>());
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof (OperationResult));

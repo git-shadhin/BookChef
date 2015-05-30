@@ -51,6 +51,7 @@
     <Compile Include="Classes\Book.cs" />
     <Compile Include="Classes\OperationResult.cs" />
     <Compile Include="Classes\Person.cs" />
+    <Compile Include="Classes\Status.cs" />
     <Compile Include="DTO\BookDto.cs" />
     <Compile Include="DTO\PersonDto.cs" />
     <Compile Include="Enums\BookStatus.cs" />
