@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using AutoMapper;
 using BookChef.Domain.Classes;
 using BookChef.Domain.DTO;
 using BookChef.Domain.Interfaces;

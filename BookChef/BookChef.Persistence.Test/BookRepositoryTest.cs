@@ -9,7 +9,7 @@ namespace BookChef.Persistence.Test
     public class BookRepositoryTest
     {
         [TestMethod]
-        public void TestAutomapperConfiguration()
+        public void TestBookRepository_AutomapperConfiguration()
         {
             Mapper.CreateMap<Books, BookDto>();
 
