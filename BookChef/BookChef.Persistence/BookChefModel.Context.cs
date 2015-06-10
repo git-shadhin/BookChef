@@ -27,7 +27,8 @@ namespace BookChef.Persistence
     
         public virtual DbSet<Books> Books { get; set; }
         public virtual DbSet<People> People { get; set; }
-        public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<Transactions> Transactions { get; set; }
+        public virtual DbSet<BookStatus> BookStatus { get; set; }
+        public virtual DbSet<TransactionLog> TransactionLog { get; set; }
     }
 }

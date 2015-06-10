@@ -32,7 +32,7 @@ namespace BookChef.Domain.Test
                 Isbn = ValidIsbn,
                 Publisher = ValidPublisher,
                 Author = ValidAuthor,
-                Status = Status.Available
+                StatusLabel = Status.Available
             },
             new BookDto
             {
@@ -41,7 +41,7 @@ namespace BookChef.Domain.Test
                 Isbn = "Another Isbn",
                 Publisher = "Another Publisher",
                 Author = "Another author",
-                Status = Status.Unavailable
+                StatusLabel = Status.Unavailable
             },
             new BookDto
             {
@@ -50,7 +50,7 @@ namespace BookChef.Domain.Test
                 Isbn = "Yet another Isbn",
                 Publisher = "Yet another Publisher",
                 Author = "Yet another Author",
-                Status = Status.Reserved
+                StatusLabel = Status.Reserved
             }
         };
 
@@ -71,11 +71,11 @@ namespace BookChef.Domain.Test
             A.CallTo(() => _bookRepository.GetByPublisher(ValidPublisher))
                 .Returns(_books.Where(x => x.Publisher == ValidPublisher));
             A.CallTo(() => _bookRepository.GetByStatus(Status.Available))
-                .Returns(_books.Where(x => x.Status == Status.Available));
+                .Returns(_books.Where(x => x.StatusLabel == Status.Available));
             A.CallTo(() => _bookRepository.GetByStatus(Status.Unavailable))
-                .Returns(_books.Where(x => x.Status == Status.Unavailable));
+                .Returns(_books.Where(x => x.StatusLabel == Status.Unavailable));
             A.CallTo(() => _bookRepository.GetByStatus(Status.Reserved))
-                .Returns(_books.Where(x => x.Status == Status.Reserved));
+                .Returns(_books.Where(x => x.StatusLabel == Status.Reserved));
 
             A.CallTo(() => _bookRepository.GetByTitle(InvalidTitle))
                 .Throws<BookNotFoundException>();

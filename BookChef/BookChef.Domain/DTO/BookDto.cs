@@ -9,6 +9,6 @@ namespace BookChef.Domain.DTO
         public string Isbn { get; set; }
         public string Author { get; set; }
         public string Publisher { get; set; }
-        public Status Status { get; set; }
+        public string StatusLabel { get; set; }
     }
 }

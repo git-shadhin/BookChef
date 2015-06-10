@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookChef.Domain.Test", "Boo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookChef.Persistence", "BookChef.Persistence\BookChef.Persistence.csproj", "{5A035A7B-A60D-4690-A7E3-7D765AB9F482}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookChef.Persistence.Test", "BookChef.Persistence.Test\BookChef.Persistence.Test.csproj", "{961490EF-064D-4CF0-81EF-B277D091EBA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{5A035A7B-A60D-4690-A7E3-7D765AB9F482}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A035A7B-A60D-4690-A7E3-7D765AB9F482}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A035A7B-A60D-4690-A7E3-7D765AB9F482}.Release|Any CPU.Build.0 = Release|Any CPU
+		{961490EF-064D-4CF0-81EF-B277D091EBA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{961490EF-064D-4CF0-81EF-B277D091EBA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{961490EF-064D-4CF0-81EF-B277D091EBA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{961490EF-064D-4CF0-81EF-B277D091EBA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

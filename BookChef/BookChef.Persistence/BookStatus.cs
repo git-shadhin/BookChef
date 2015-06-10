@@ -12,21 +12,16 @@ namespace BookChef.Persistence
     using System;
     using System.Collections.Generic;
     
-    public partial class Books
+    public partial class BookStatus
     {
-        public Books()
+        public BookStatus()
         {
-            this.Transactions = new HashSet<Transactions>();
+            this.Books = new HashSet<Books>();
         }
     
         public long Id { get; set; }
-        public string Title { get; set; }
-        public string Isbn { get; set; }
-        public string Author { get; set; }
-        public string Publisher { get; set; }
-        public long Status { get; set; }
+        public string Label { get; set; }
     
-        public virtual ICollection<Transactions> Transactions { get; set; }
-        public virtual BookStatus BookStatus { get; set; }
+        public virtual ICollection<Books> Books { get; set; }
     }
 }

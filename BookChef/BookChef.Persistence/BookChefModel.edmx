@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BookChefModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\GitHub\BookChef\BookChef\BookChef.Persistence\BookChef.db3" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookChefModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Projects\GitHub\BookChef\BookChef\BookChef.Persistence\BookChef.db3" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Books">
           <Key>
             <PropertyRef Name="Id" />
@@ -16,6 +16,13 @@
           <Property Name="Publisher" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="Status" Type="integer" Nullable="false" />
         </EntityType>
+        <EntityType Name="BookStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Label" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
         <EntityType Name="People">
           <Key>
             <PropertyRef Name="Id" />
@@ -26,12 +33,20 @@
           <Property Name="Birthday" Type="nvarchar" MaxLength="2147483647" />
           <Property Name="ControlNumber" Type="nvarchar" MaxLength="2147483647" />
         </EntityType>
-        <EntityType Name="Status">
+        <EntityType Name="TransactionLog">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Label" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Date" Type="real" Nullable="false" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Pnum" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="BookTitle" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="BookIsbn" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="BookAuthor" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="BookPublisher" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="TransactionLabel" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="Transactions">
           <Key>
@@ -44,10 +59,10 @@
           <Property Name="Description" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <Association Name="FK_Books_0_0">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="BookStatus" Type="Self.BookStatus" Multiplicity="1" />
           <End Role="Books" Type="Self.Books" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Status">
+            <Principal Role="BookStatus">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Books">
@@ -81,11 +96,12 @@
         </Association>
         <EntityContainer Name="BookChefModelStoreContainer">
           <EntitySet Name="Books" EntityType="Self.Books" store:Type="Tables" />
+          <EntitySet Name="BookStatus" EntityType="Self.BookStatus" store:Type="Tables" />
           <EntitySet Name="People" EntityType="Self.People" store:Type="Tables" />
-          <EntitySet Name="Status" EntityType="Self.Status" store:Type="Tables" />
+          <EntitySet Name="TransactionLog" EntityType="Self.TransactionLog" store:Type="Tables" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" store:Type="Tables" />
           <AssociationSet Name="FK_Books_0_0" Association="Self.FK_Books_0_0">
-            <End Role="Status" EntitySet="Status" />
+            <End Role="BookStatus" EntitySet="BookStatus" />
             <End Role="Books" EntitySet="Books" />
           </AssociationSet>
           <AssociationSet Name="FK_Transactions_0_0" Association="Self.FK_Transactions_0_0">
@@ -97,8 +113,7 @@
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookChefModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -112,8 +127,8 @@
           <Property Name="Author" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Publisher" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="Status" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Status1" Relationship="Self.FK_Books_0_0" FromRole="Books" ToRole="Status" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_0_0" FromRole="Books" ToRole="Transactions" />
+          <NavigationProperty Name="BookStatus" Relationship="BookChefModel.FK_Books_0_0" FromRole="Books" ToRole="BookStatus" />
         </EntityType>
         <EntityType Name="People">
           <Key>
@@ -125,14 +140,6 @@
           <Property Name="Birthday" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <Property Name="ControlNumber" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_1_0" FromRole="People" ToRole="Transactions" />
-        </EntityType>
-        <EntityType Name="Status">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Label" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Books" Relationship="Self.FK_Books_0_0" FromRole="Status" ToRole="Books" />
         </EntityType>
         <EntityType Name="Transactions">
           <Key>
@@ -146,18 +153,6 @@
           <NavigationProperty Name="Books" Relationship="Self.FK_Transactions_0_0" FromRole="Transactions" ToRole="Books" />
           <NavigationProperty Name="People" Relationship="Self.FK_Transactions_1_0" FromRole="Transactions" ToRole="People" />
         </EntityType>
-        <Association Name="FK_Books_0_0">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Books" Type="Self.Books" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Books">
-              <PropertyRef Name="Status" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Transactions_0_0">
           <End Role="Books" Type="Self.Books" Multiplicity="1" />
           <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
@@ -185,12 +180,7 @@
         <EntityContainer Name="BookChefEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Books" EntityType="Self.Books" />
           <EntitySet Name="People" EntityType="Self.People" />
-          <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="Transactions" EntityType="Self.Transactions" />
-          <AssociationSet Name="FK_Books_0_0" Association="Self.FK_Books_0_0">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Books" EntitySet="Books" />
-          </AssociationSet>
           <AssociationSet Name="FK_Transactions_0_0" Association="Self.FK_Transactions_0_0">
             <End Role="Books" EntitySet="Books" />
             <End Role="Transactions" EntitySet="Transactions" />
@@ -199,7 +189,48 @@
             <End Role="People" EntitySet="People" />
             <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
+          <EntitySet Name="BookStatus" EntityType="BookChefModel.BookStatus" />
+          <AssociationSet Name="FK_Books_0_0" Association="BookChefModel.FK_Books_0_0">
+            <End Role="BookStatus" EntitySet="BookStatus" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <EntitySet Name="TransactionLog" EntityType="BookChefModel.TransactionLog" />
         </EntityContainer>
+        <EntityType Name="BookStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Label" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Books" Relationship="BookChefModel.FK_Books_0_0" FromRole="BookStatus" ToRole="Books" />
+        </EntityType>
+        <Association Name="FK_Books_0_0">
+          <End Type="BookChefModel.BookStatus" Role="BookStatus" Multiplicity="1" />
+          <End Type="BookChefModel.Books" Role="Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BookStatus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TransactionLog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="Double" Nullable="false" />
+          <Property Name="Firstname" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="Pnum" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="BookTitle" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="BookIsbn" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="BookAuthor" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="BookPublisher" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionLabel" Type="String" Nullable="false" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -229,14 +260,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="BookChefModel.Status">
-              <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Label" ColumnName="Label" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Transactions">
             <EntityTypeMapping TypeName="BookChefModel.Transactions">
               <MappingFragment StoreEntitySet="Transactions">
@@ -245,6 +268,30 @@
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="BookId" ColumnName="BookId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookStatus">
+            <EntityTypeMapping TypeName="BookChefModel.BookStatus">
+              <MappingFragment StoreEntitySet="BookStatus">
+                <ScalarProperty Name="Label" ColumnName="Label" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionLog">
+            <EntityTypeMapping TypeName="BookChefModel.TransactionLog">
+              <MappingFragment StoreEntitySet="TransactionLog">
+                <ScalarProperty Name="TransactionLabel" ColumnName="TransactionLabel" />
+                <ScalarProperty Name="BookPublisher" ColumnName="BookPublisher" />
+                <ScalarProperty Name="BookAuthor" ColumnName="BookAuthor" />
+                <ScalarProperty Name="BookIsbn" ColumnName="BookIsbn" />
+                <ScalarProperty Name="BookTitle" ColumnName="BookTitle" />
+                <ScalarProperty Name="Pnum" ColumnName="Pnum" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
