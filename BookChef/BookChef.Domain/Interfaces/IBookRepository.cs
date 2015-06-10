@@ -10,9 +10,9 @@ namespace BookChef.Domain.Interfaces
         IEnumerable<BookDto> GetByAuthor(string author);
         IEnumerable<BookDto> GetByIsbn(string isbn);
         IEnumerable<BookDto> GetByPublisher(string publisher);
-        IEnumerable<BookDto> GetByStatus(Status bookStatus);
+        IEnumerable<BookDto> GetByStatus(string bookStatus);
         OperationResult CreateBook(BookDto newbookDto);
-        OperationResult ChangeBookStatus(BookDto bookDto, Status status);
+        OperationResult ChangeBookStatus(BookDto bookDto, string status);
         OperationResult DeleteBook(BookDto bookDto);
     }
 }

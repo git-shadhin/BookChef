@@ -15,69 +15,51 @@ namespace BookChef.Domain.Services
             _bookRepository = bookRepository;
         }
 
-        public IEnumerable<Book> GetByTitle(string title)
+        public IEnumerable<BookDto> GetByTitle(string title)
         {
             var bookDto = _bookRepository.GetByTitle(title);
-
-            var books = Mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(bookDto);
-
-            return books;
+            return bookDto;
         }
 
-        public IEnumerable<Book> GetByAuthor(string author)
+        public IEnumerable<BookDto> GetByAuthor(string author)
         {
             var bookDto = _bookRepository.GetByAuthor(author);
-
-            var books = Mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(bookDto);
-
-            return books;
+            return bookDto;
         }
 
-        public IEnumerable<Book> GetByIsbn(string isbn)
+        public IEnumerable<BookDto> GetByIsbn(string isbn)
         {
             var bookDto = _bookRepository.GetByIsbn(isbn);
-
-            var books = Mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(bookDto);
-
-            return books;
+            return bookDto;
         }
 
-        public IEnumerable<Book> GetByPublisher(string publisher)
+        public IEnumerable<BookDto> GetByPublisher(string publisher)
         {
             var bookDto = _bookRepository.GetByPublisher(publisher);
-
-            var books = Mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(bookDto);
-
-            return books;
+            return bookDto;
         }
 
-        public IEnumerable<Book> GetByStatus(Status status)
+        public IEnumerable<BookDto> GetByStatus(string status)
         {
             var bookDto = _bookRepository.GetByStatus(status);
-
-            var books = Mapper.Map<IEnumerable<BookDto>, IEnumerable<Book>>(bookDto);
-
-            return books;
+            return bookDto;
         }
 
         public OperationResult CreateBook(BookDto book)
         {
             var response = _bookRepository.CreateBook(book);
-
             return response;
         }
 
-        public OperationResult ChangeBookStatus(BookDto bookDto, Status status)
+        public OperationResult ChangeBookStatus(BookDto bookDto, string status)
         {
             var response = _bookRepository.ChangeBookStatus(bookDto, status);
-
             return response;
         }
 
         public OperationResult DeleteBook(BookDto bookDto)
         {
             var response = _bookRepository.DeleteBook(bookDto);
-
             return response;
         }
     }

@@ -36,7 +36,7 @@ namespace BookChef.Persistence
             throw new NotImplementedException();
         }
 
-        public IEnumerable<BookDto> GetByStatus(Domain.Classes.Status bookStatus)
+        public IEnumerable<BookDto> GetByStatus(string bookStatus)
         {
             throw new NotImplementedException();
         }
@@ -46,7 +46,7 @@ namespace BookChef.Persistence
             throw new NotImplementedException();
         }
 
-        public OperationResult ChangeBookStatus(BookDto bookDto, Domain.Classes.Status status)
+        public OperationResult ChangeBookStatus(BookDto bookDto, string status)
         {
             throw new NotImplementedException();
         }
