@@ -1,5 +1,4 @@
-﻿using BookChef.Domain.Classes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace BookChef.Domain.DTO
 {
@@ -15,6 +14,6 @@ namespace BookChef.Domain.DTO
 
         public string ControlNumber { get; set; }
 
-        public virtual ICollection<Book> Books { get; set; }
+        public virtual ICollection<BookDto> Books { get; set; }
     }
 }

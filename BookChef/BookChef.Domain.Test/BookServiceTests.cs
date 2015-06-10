@@ -89,9 +89,6 @@ namespace BookChef.Domain.Test
             A.CallTo(() => _bookRepository.GetByPublisher(InvalidPublisher))
                 .Throws<BookNotFoundException>();
 
-
-            Mapper.CreateMap<BookDto, Book>();
-
             _bookService = new BookService(_bookRepository);
         }
 
