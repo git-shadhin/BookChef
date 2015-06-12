@@ -1,10 +1,11 @@
-﻿using BookChef.Domain.Classes;
+﻿using System;
+using BookChef.Domain.Classes;
 
 namespace BookChef.Domain.DTO
 {
     public class BookDto
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Title { get; set; }
         public string Isbn { get; set; }
         public string Author { get; set; }

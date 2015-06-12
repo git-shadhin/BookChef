@@ -4,7 +4,7 @@ namespace BookChef.Domain.DTO
 {
     public class PersonDto
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         public string Firstname { get; set; }
 
