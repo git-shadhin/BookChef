@@ -19,7 +19,7 @@ namespace BookChef.Persistence.Test
         [TestInitialize]
         public void Initialize()
         {
-            var data = new List<Books>
+            var books = new List<Books>
             {
                 new Books
                 {
@@ -50,12 +50,36 @@ namespace BookChef.Persistence.Test
                 },
             };
 
-            var set = A.Fake<DbSet<Books>>(o => o.Implements(typeof (IQueryable<Books>))
+            var statuses = new List<BookStatus>
+            {
+                new BookStatus
+                {
+                    Id = 1,
+                    Label = "Available"
+                },
+                new BookStatus
+                {
+                    Id = 2,
+                    Label = "Reserved"
+                },
+                new BookStatus
+                {
+                    Id = 3,
+                    Label = "Unavailable"
+                }
+            };
+
+            var bookSet = A.Fake<DbSet<Books>>(o => o.Implements(typeof (IQueryable<Books>))
                 .Implements(typeof (IDbAsyncEnumerable<Books>)))
-                .SetupData(data);
+                .SetupData(books);
+
+            var statusSet = A.Fake<DbSet<BookStatus>>(o => o.Implements(typeof (IQueryable<BookStatus>))
+                .Implements(typeof (IDbAsyncEnumerable<BookStatus>)))
+                .SetupData(statuses);
                 
             _context = A.Fake<BookChefEntities>();
-            A.CallTo(() => _context.Books).Returns(set);
+            A.CallTo(() => _context.Books).Returns(bookSet);
+            A.CallTo(() => _context.BookStatus).Returns(statusSet);
 
             _bookRepository = new BookRepository(_context);
         }
@@ -107,15 +131,77 @@ namespace BookChef.Persistence.Test
         }
 
         [TestMethod]
-        public void GetByTitle_NonExistingAuthor_ReturnsEmptyBookDtos()
+        public void GetByAuthor_NonExistingAuthor_ReturnsEmptyBookDtos()
         {
-            const string title = "A non-existing Author";
+            const string author = "A non-existing Author";
 
-            var result = _bookRepository.GetByTitle(title);
+            var result = _bookRepository.GetByAuthor(author);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<BookDto>));
             Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void GetByIsbn_ValidIsbn_ReturnsBookDtos()
+        {
+            const string isbn = "12345";
+
+            var result = _bookRepository.GetByIsbn(isbn);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<BookDto>));
+            Assert.AreEqual(3, result.Count());
+            Assert.AreEqual(isbn, result.ElementAt(0).Isbn);
+        }
+
+        [TestMethod]
+        public void GetByIsbn_NonExistingIsbn_ReturnsEmptyBookDtos()
+        {
+            const string isbn = "6789";
+
+            var result = _bookRepository.GetByIsbn(isbn);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<BookDto>));
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void GetByPublisher_ValidPublisher_ReturnsBookDtos()
+        {
+            const string publisher = "Test Publisher";
+
+            var result = _bookRepository.GetByPublisher(publisher);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<BookDto>));
+            Assert.AreEqual(2, result.Count());
+            Assert.AreEqual(publisher, result.ElementAt(0).Publisher);
+        }
+
+        [TestMethod]
+        public void GetByPublisher_NonExistingPublisher_ReturnsEmptyBookDtos()
+        {
+            const string publisher = "6789";
+
+            var result = _bookRepository.GetByPublisher(publisher);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<BookDto>));
+            Assert.AreEqual(0, result.Count());
+        }
+
+        [TestMethod]
+        public void GetByStatus_ValidStatus_ReturnsBookDtos()
+        {
+            const string status = "Available";
+
+            var result = _bookRepository.GetByStatus(status);
+
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result, typeof(IEnumerable<BookDto>));
+            Assert.AreEqual(1, result.Count());
         }
     }
 }

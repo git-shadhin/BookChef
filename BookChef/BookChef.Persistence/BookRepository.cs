@@ -67,17 +67,62 @@ namespace BookChef.Persistence
 
         public IEnumerable<BookDto> GetByIsbn(string isbn)
         {
-            throw new NotImplementedException();
+            using (_context)
+            {
+                try
+                {
+                    var result = _context.Books.Where(books => books.Isbn.Contains(isbn))
+                        .AsQueryable()
+                        .Project()
+                        .To<BookDto>()
+                        .ToList();
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
 
         public IEnumerable<BookDto> GetByPublisher(string publisher)
         {
-            throw new NotImplementedException();
+            using (_context)
+            {
+                try
+                {
+                    var result = _context.Books.Where(books => books.Publisher.Contains(publisher))
+                        .AsQueryable()
+                        .Project()
+                        .To<BookDto>()
+                        .ToList();
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
 
         public IEnumerable<BookDto> GetByStatus(string bookStatus)
         {
-            throw new NotImplementedException();
+            using (_context)
+            {
+                try
+                {
+                    var result = _context.Books.Where(books => books.BookStatus.Label.Contains(bookStatus))
+                        .AsQueryable()
+                        .Project()
+                        .To<BookDto>()
+                        .ToList();
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
 
         public OperationResult CreateBook(BookDto newbookDto)
