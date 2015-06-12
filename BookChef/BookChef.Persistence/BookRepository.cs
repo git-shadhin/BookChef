@@ -11,15 +11,27 @@ namespace BookChef.Persistence
 {
     public class BookRepository : IBookRepository
     {
+        private readonly BookChefEntities _context;
+
+        public BookRepository(BookChefEntities db)
+        {
+            _context = db;
+            AutomapperConfiguration();
+        }
+
+        public BookRepository()
+        {
+            _context = new BookChefEntities();
+            AutomapperConfiguration();
+        }
+
         public IEnumerable<BookDto> GetByTitle(string booktitle)
         {
-            Mapper.CreateMap<Books, BookDto>();
-
-            using (var context = new BookChefEntities())
+            using (_context)
             {
                 try
                 {
-                    var result = context.Books.Where(books => books.Title.Contains(booktitle))
+                    var result = _context.Books.Where(books => books.Title.Contains(booktitle))
                         .AsQueryable()
                         .Project()
                         .To<BookDto>()
@@ -28,7 +40,6 @@ namespace BookChef.Persistence
                 }
                 catch (Exception)
                 {
-                    
                     throw;
                 }
             }
@@ -36,7 +47,22 @@ namespace BookChef.Persistence
 
         public IEnumerable<BookDto> GetByAuthor(string author)
         {
-            throw new NotImplementedException();
+            using (_context)
+            {
+                try
+                {
+                    var result = _context.Books.Where(books => books.Author.Contains(author))
+                        .AsQueryable()
+                        .Project()
+                        .To<BookDto>()
+                        .ToList();
+                    return result;
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
         }
 
         public IEnumerable<BookDto> GetByIsbn(string isbn)
@@ -67,6 +93,11 @@ namespace BookChef.Persistence
         public OperationResult DeleteBook(BookDto bookDto)
         {
             throw new NotImplementedException();
+        }
+
+        private static void AutomapperConfiguration()
+        {
+            Mapper.CreateMap<Books, BookDto>();
         }
     }
 }
