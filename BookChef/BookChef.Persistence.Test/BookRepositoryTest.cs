@@ -55,17 +55,20 @@ namespace BookChef.Persistence.Test
                 new BookStatus
                 {
                     Id = 1,
-                    Label = "Available"
+                    Label = "Available",
+                    Books = books
                 },
                 new BookStatus
                 {
                     Id = 2,
-                    Label = "Reserved"
+                    Label = "Reserved",
+                    Books = books
                 },
                 new BookStatus
                 {
                     Id = 3,
-                    Label = "Unavailable"
+                    Label = "Unavailable",
+                    Books = books
                 }
             };
 
