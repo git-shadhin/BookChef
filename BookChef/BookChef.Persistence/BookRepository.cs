@@ -31,7 +31,8 @@ namespace BookChef.Persistence
             {
                 try
                 {
-                    var result = _context.Books.Where(books => books.Title.Contains(booktitle))
+                    var result = _context.Books
+                        .Where(books => books.Title.Contains(booktitle))
                         .AsQueryable()
                         .Project()
                         .To<BookDto>()
@@ -51,7 +52,8 @@ namespace BookChef.Persistence
             {
                 try
                 {
-                    var result = _context.Books.Where(books => books.Author.Contains(author))
+                    var result = _context.Books
+                        .Where(books => books.Author.Contains(author))
                         .AsQueryable()
                         .Project()
                         .To<BookDto>()
@@ -71,7 +73,8 @@ namespace BookChef.Persistence
             {
                 try
                 {
-                    var result = _context.Books.Where(books => books.Isbn.Contains(isbn))
+                    var result = _context.Books
+                        .Where(books => books.Isbn.Contains(isbn))
                         .AsQueryable()
                         .Project()
                         .To<BookDto>()
@@ -91,7 +94,8 @@ namespace BookChef.Persistence
             {
                 try
                 {
-                    var result = _context.Books.Where(books => books.Publisher.Contains(publisher))
+                    var result = _context.Books
+                        .Where(books => books.Publisher.Contains(publisher))
                         .AsQueryable()
                         .Project()
                         .To<BookDto>()
@@ -111,11 +115,13 @@ namespace BookChef.Persistence
             {
                 try
                 {
-                    var result = _context.Books.Where(books => books.BookStatus.Label.Contains(bookStatus))
+                    var result = _context.Books
+                        .Where(books => books.BookStatus.Label.Equals(bookStatus))
                         .AsQueryable()
                         .Project()
                         .To<BookDto>()
                         .ToList();
+
                     return result;
                 }
                 catch (Exception)

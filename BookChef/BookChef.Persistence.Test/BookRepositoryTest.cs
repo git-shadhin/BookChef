@@ -104,8 +104,9 @@ namespace BookChef.Persistence.Test
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<BookDto>));
-            Assert.AreEqual(2, result.Count());
-            Assert.AreEqual(title, result.ElementAt(0).Title);
+            var bookDtos = result as BookDto[] ?? result.ToArray();
+            Assert.AreEqual(2, bookDtos.Count());
+            Assert.AreEqual(title, bookDtos.ElementAt(0).Title);
         }
 
         [TestMethod]
@@ -129,8 +130,9 @@ namespace BookChef.Persistence.Test
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<BookDto>));
-            Assert.AreEqual(2, result.Count());
-            Assert.AreEqual(author, result.ElementAt(0).Author);
+            var bookDtos = result as BookDto[] ?? result.ToArray();
+            Assert.AreEqual(2, bookDtos.Count());
+            Assert.AreEqual(author, bookDtos.ElementAt(0).Author);
         }
 
         [TestMethod]
@@ -154,8 +156,9 @@ namespace BookChef.Persistence.Test
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<BookDto>));
-            Assert.AreEqual(3, result.Count());
-            Assert.AreEqual(isbn, result.ElementAt(0).Isbn);
+            var bookDtos = result as BookDto[] ?? result.ToArray();
+            Assert.AreEqual(3, bookDtos.Count());
+            Assert.AreEqual(isbn, bookDtos.ElementAt(0).Isbn);
         }
 
         [TestMethod]
@@ -179,8 +182,9 @@ namespace BookChef.Persistence.Test
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(IEnumerable<BookDto>));
-            Assert.AreEqual(2, result.Count());
-            Assert.AreEqual(publisher, result.ElementAt(0).Publisher);
+            var bookDtos = result as BookDto[] ?? result.ToArray();
+            Assert.AreEqual(2, bookDtos.Count());
+            Assert.AreEqual(publisher, bookDtos.ElementAt(0).Publisher);
         }
 
         [TestMethod]
